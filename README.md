@@ -9,6 +9,6 @@
 사용방법
 * IntelliJ 다운받고 이 프로젝트를 깃으로 연다.
 * 컴파일한다.
-* DCGreener 클래스의 id와 pw를 본인의 id와 pw로 변경한다.
+* DCGreener 클래스의 id와 pw String을 본인의 id와 pw로 변경한다.
 * DCGreener 클래스를 실행한다.
 
