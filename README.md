@@ -14,7 +14,7 @@
 1. JAR 실행 
     1. DCGreener.jar 파일을 다운로드한다.
     2. 커맨드라인에서 jar 파일이 다운로드 된 경로로 이동한다.
-    > 3.  java -jar DCGreener.jar  으로 JAR 파일을 실행한다.
+    3. java -jar DCGreener.jar  으로 JAR 파일을 실행한다.
 
 2. 소스 컴파일
     1. IntelliJ 다운받고 이 프로젝트를 깃으로 연다.
