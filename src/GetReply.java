@@ -10,20 +10,22 @@ import java.util.ArrayList;
 /**
  * Created by thy2134 on 1/29/16.
  */
-public class ConnectDC {
-    public ArrayList<String> postIDs = new ArrayList<String>();
-    public ArrayList<String> gallIDs = new ArrayList<String>(); // 댓 단 원글 고유번호 및 갤 ID 담을 리스트. 크기를 예측 하기 힘드니 배열이 아닌 ArrayList로.
+public class GetReply {
+    public ArrayList<String> rpostIDs = new ArrayList<>();
+    public ArrayList<String> rgallIDs = new ArrayList<>(); // 댓 단 원글 고유번호 및 갤 ID 담을 리스트. 크기를 예측 하기 힘드니 배열이 아닌 ArrayList로.
     public String user_no;
-    public ConnectDC(String id) {
+    public GetReply(String id) {
 
         String UA = "Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53";
             // 디씨 모바일은 UA로 접속 거르니까 모바일 UA 추가.
 
-        String postID;
-        String gallID;
+        String rpostID;
+        String rgallID;
         String pagenum;
-        try {
 
+
+        // 댓글 파싱 부분.
+        try {
             Document doc = Jsoup.connect("http://m.dcinside.com/gallog/list.php?g_id=" + id + "&g_type=R").
                     userAgent(UA)
                     .timeout(10000).get(); // PC버전 갤로그의 기술적 한계로 인해 모바일 갤로그로 접속.
@@ -44,10 +46,10 @@ public class ConnectDC {
                     // 링크 예제
                     // ./view.php?g_id=nerdykjc&id=doosanbears_new&no=5497196&page=1&g_type=Rs_type=&g_no=47
                     split = e.attr("href").split("&"); // 링크의 GET 방식은 &으로 구분하므로 &으로 나누기.
-                    postID = split[2].replace("no=", "");
-                    gallID = split[1].replace("id=","");
-                    postIDs.add(postID);
-                    gallIDs.add(gallID); // 갤 ID / 댓 담긴 글 고유번호 리스트에 등록.
+                    rpostID = split[2].replace("no=", "");
+                    rgallID = split[1].replace("id=","");
+                    rpostIDs.add(rpostID);
+                    rgallIDs.add(rgallID); // 갤 ID / 댓 담긴 글 고유번호 리스트에 등록.
                 }
             }
 

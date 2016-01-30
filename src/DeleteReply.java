@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * Created by kyujin on 1/29/16.
+ * Created by thy2134 on 1/29/16.
  */
 //댓글 HTML 구조
 /*
@@ -26,19 +26,19 @@ import java.util.Map;
 */
 
 public class DeleteReply {
-    public DeleteReply(ArrayList<String> postID, ArrayList<String> gallID, String id, String pw, String user_no) {
+    public DeleteReply(ArrayList<String> rpostID, ArrayList<String> rgallID, String id, String pw, String user_no) {
 
         String UA = "Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53";
         // 디씨 모바일은 UA로 접속 거르니까 모바일 UA 추가.
-        ArrayList<String> replyIDs = new ArrayList<String>(); // 댓글 고유번호를 담을 ArrayList.
+        ArrayList<String> replyIDs = new ArrayList<>(); // 댓글 고유번호를 담을 ArrayList.
 
         Map<String,String> cookies = new LoginDC(id, pw).cookies; // 로그인 세션 정보가 담긴 쿠키.
 
 
-        for (int i = 0; i < postID.size(); i++) {
+        for (int i = 0; i < rpostID.size(); i++) {
             try {
 
-                String url = "http://m.dcinside.com/view.php?id=" + gallID.get(i) + "&no=" + postID.get(i); // 댓글 담긴 원글의 URL 만들기.
+                String url = "http://m.dcinside.com/view.php?id=" + rgallID.get(i) + "&no=" + rpostID.get(i); // 댓글 담긴 원글의 URL 만들기.
                 Document doc = Jsoup.connect(url).cookies(cookies).userAgent(UA).get();  // 원글 접속.
                 Elements reply = doc.select("span.inner_best"); // 댓글 정보가 담긴 HTML 태그 찾기.
                 String boardid = "";
@@ -57,8 +57,8 @@ public class DeleteReply {
 
                             if (boardid.equals("")) { // 원글러가 윾동일때.
                             Connection.Response res = Jsoup.connect("http://m.dcinside.com/_option_write.php")
-                                    .data("id", gallID.get(i).replace(" ", ""), "no", postID.get(i).replace(" ", ""), "iNo", replyID.replace(" ", ""), "user_no", user_no.replace(" ", ""), "board_id", boardid.replace(" ", ""), "best_chk", "", "mode", "comment_del")
-                                    // 지울 정보 POST 하는 부분. 갤 ID / 원글 고유번호 / 댓글 고유번호 / 자신의 고유번호 / 윾동이니 아무것도 없는 board_no 및 자잘한 요소 보냄.
+                                    .data("id", rgallID.get(i).replace(" ", ""), "no", rpostID.get(i).replace(" ", ""), "iNo", replyID.replace(" ", ""), "user_no", user_no.replace(" ", ""), "board_id", boardid.replace(" ", ""), "best_chk", "", "mode", "comment_del")
+                                    // 지울 정보 POST 하는 부분. 갤 ID / 원글 고유번호 / 댓글 고유번호 / 자신의 고유번호 / 윾동이니 아무것도 없는 board_no / 지울 요소가 댓글이라는 모드 설정 및 자잘한 요소 보냄.
                                     .method(Connection.Method.POST)
                                     .userAgent(UA)
                                     .header("Content-Type", "application/x-www-form-urlencoded")
@@ -73,15 +73,15 @@ public class DeleteReply {
 
 
                                     System.out.println(res.body());
-                                    System.out.println(gallID.get(i) + " " + postID.get(i) + " " + replyID + " " + user_no + " " + boardid);
+                                    System.out.println(rgallID.get(i) + " " + rpostID.get(i) + " " + replyID + " " + user_no + " " + boardid);
                                     System.out.println(url);
                                     System.out.println("\n");
 
                                 // Response Body가 1이면 성공했다는 뜻.
                         } else { // 원글러가 고닉일때.
                             Connection.Response res = Jsoup.connect("http://m.dcinside.com/_option_write.php")
-                                    .data("id", gallID.get(i).replace(" ", ""), "no", postID.get(i).replace(" ", ""), "iNo", replyID.replace(" ", ""), "user_no", user_no.replace(" ", ""), "board_id", boardid.replace(" ", ""), "best_chk", "", "mode", "comment_del")
-                                    // 지울 정보 POST 하는 부분. 갤 ID / 원글 고유번호 / 댓글 고유번호 / 자신의 고유번호 / 원글러의 고닉ID 및 자잘한 요소 보냄.
+                                    .data("id", rgallID.get(i).replace(" ", ""), "no", rpostID.get(i).replace(" ", ""), "iNo", replyID.replace(" ", ""), "user_no", user_no.replace(" ", ""), "board_id", boardid.replace(" ", ""), "best_chk", "", "mode", "comment_del")
+                                    // 지울 정보 POST 하는 부분. 갤 ID / 원글 고유번호 / 댓글 고유번호 / 자신의 고유번호 / 원글러의 고닉ID / 지울 요소가 댓글이라는 모드 설정 및 자잘한 요소 보냄.
                                     .method(Connection.Method.POST)
                                     .userAgent(UA)
                                     .header("Content-Type", "application/x-www-form-urlencoded")
@@ -96,7 +96,7 @@ public class DeleteReply {
 
 
                                     System.out.println(res.body());
-                                    System.out.println(gallID.get(i) + " " + postID.get(i) + " " + replyID + " " + user_no + " " + boardid);
+                                    System.out.println(rgallID.get(i) + " " + rpostID.get(i) + " " + replyID + " " + user_no + " " + boardid);
                                     System.out.println(url);
                                     System.out.println("\n");
 

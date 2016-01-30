@@ -1,5 +1,5 @@
 /**
- * Created by kyujin on 1/26/16.
+ * Created by thy2134 on 1/26/16.
  */
 
 import java.util.ArrayList;
@@ -15,13 +15,19 @@ public class DCGreener {
         System.out.println("PW? ");
         String pw = s.nextLine(); // 키보드로 입력받는 본인의 PW. 키보드로 입력받지 않고 싶으면 s.nextLine() 부분을 "자신의 암호" 로 변경.
 
-        ConnectDC login = new ConnectDC(id); // 갤로그에서 댓 달린 글 고유번호 / 갤 ID 불러오기.
+        GetPost post = new GetPost(id);
 
-        ArrayList<String> gallID = login.gallIDs; // 갤 ID들 담긴 리스트.
-        ArrayList<String> postID = login.postIDs; // 댓 달린 글 고유번호 담긴 리스트.
-        String userno = login.user_no; // 회원 고유번호(인듯?).
+        GetReply reply = new GetReply(id); // 갤로그에서 댓 달린 글 고유번호 / 갤 ID 불러오기.
 
-        new DeleteReply(postID, gallID, id, pw, userno); // 지우기 실행!
+        ArrayList<String> gallID = post.gallIDs;
+        ArrayList<String> postID = post.postIDs;
+
+        ArrayList<String> rgallID = reply.rgallIDs; // 갤 ID들 담긴 리스트.
+        ArrayList<String> rpostID = reply.rpostIDs; // 댓 달린 글 고유번호 담긴 리스트.
+        String userno = reply.user_no; // 회원 고유번호(인듯?).
+
+        new DeletePost(postID, gallID, id, pw, userno);
+        new DeleteReply(rpostID, rgallID, id, pw, userno); // 지우기 실행!
 
     }
 }
