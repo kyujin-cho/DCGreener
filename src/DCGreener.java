@@ -2,6 +2,8 @@
  * Created by thy2134 on 1/26/16.
  */
 
+import org.jsoup.nodes.Document;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,9 +17,10 @@ public class DCGreener {
         System.out.println("PW? ");
         String pw = s.nextLine(); // 키보드로 입력받는 본인의 PW. 키보드로 입력받지 않고 싶으면 s.nextLine() 부분을 "자신의 암호" 로 변경.
 
-        GetPost post = new GetPost(id);
+        LoginDC login = new LoginDC(id, pw);
 
-        GetReply reply = new GetReply(id); // 갤로그에서 댓 달린 글 고유번호 / 갤 ID 불러오기.
+        GetPost post = new GetPost(id, login.cookies);
+        GetReply reply = new GetReply(id, login.cookies); // 갤로그에서 댓 달린 글 고유번호 / 갤 ID 불러오기.
 
         ArrayList<String> gallID = post.gallIDs;
         ArrayList<String> postID = post.postIDs;
@@ -28,6 +31,5 @@ public class DCGreener {
 
         new DeletePost(postID, gallID, id, pw, userno);
         new DeleteReply(rpostID, rgallID, id, pw, userno); // 지우기 실행!
-
     }
 }

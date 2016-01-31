@@ -3,8 +3,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.print.Doc;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by thy2134 on 1/31/16.
@@ -13,7 +15,9 @@ public class GetPost {
     public ArrayList<String> postIDs = new ArrayList<>();
     public ArrayList<String> gallIDs = new ArrayList<>();
 
-    public GetPost(String id) {
+
+
+    public GetPost(String id, Map<String, String> cookies ) {
 
 
         String UA = "Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53";
@@ -33,6 +37,7 @@ public class GetPost {
             for (int i=1; i<=Integer.parseInt(pagenum); i++) {
                 doc = Jsoup.connect("http://m.dcinside.com/gallog/list.php?g_id=" + id + "&g_type=G&page=" + i)
                         .userAgent(UA)
+                        .cookies(cookies)
                         .timeout(10000).get(); // 갤로그 페이지 넘기기.
                     /*태그 예제
                     <a href="./view.php?g_id=nerdykjc&id=doosanbears_new&no=5497196&page=1&g_type=Rs_type=&g_no=47" class="list_picture_a">
@@ -52,6 +57,7 @@ public class GetPost {
                     gallIDs.add(gallID); // 갤 ID / 댓 담긴 글 고유번호 리스트에 등록.
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
