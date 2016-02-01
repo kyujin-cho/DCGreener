@@ -20,6 +20,8 @@
     1. IntelliJ 다운받고 이 프로젝트를 깃으로 연다.
     2. 컴파일한다.
     3.  DCGreener 클래스를 실행한다.
-    
-이 프로그램은 GPL(GNU 공중 사용 허가서) 을 준수합니다. 
-자세한 내용은 http://www.gnu.org/licenses/gpl-3.0.html 에서 확인하세요.
+
+
+
+이 프로그램은 GPL(공중 사용 허가서) 을 준수합니다.
+자세한 내용은 http://www.gnu.org/licenses/gpl-3.0.html 을 참조하세요.

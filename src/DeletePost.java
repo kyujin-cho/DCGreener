@@ -50,6 +50,8 @@ public class DeletePost {
                 }
             }
 
+        System.out.println("End.");
+
 
 
 

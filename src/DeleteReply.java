@@ -109,6 +109,8 @@ public class DeleteReply {
                 System.out.println("Reply has been already deleted.");
             }
         }
+        System.out.println("End.");
+
     }
 
 }
