@@ -37,5 +37,8 @@ public class DCGreener {
 
         new DeletePost(postID, gallID, id, pw, userno);
         new DeleteReply(rpostID, rgallID, id, pw, userno); // 지우기 실행!
+
+        new DeleteGPost(postgID, pageNo, id, pw);
+        new DeleteGReply(rpostgID, rpageNo, id, pw);
     }
 }
