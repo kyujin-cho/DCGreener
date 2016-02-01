@@ -19,7 +19,7 @@ public class DeletePost {
         // 디씨 모바일은 UA로 접속 거르니까 모바일 UA 추가.
         Map<String,String> cookies = new LoginDC(id, pw).cookies; // 로그인 세션 정보가 담긴 쿠키.
 
-
+            System.out.println("======POST REMOVAL PROCESS START======");
             for (int i = 0; i < postID.size(); i++) {
                 try {
                     Connection.Response res = Jsoup.connect("http://m.dcinside.com/_option_write.php")
@@ -50,7 +50,7 @@ public class DeletePost {
                 }
             }
 
-        System.out.println("End.");
+        System.out.println("======POST REMOVAL PROCESS END======");
 
 
 

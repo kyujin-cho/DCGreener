@@ -26,14 +26,17 @@ import java.util.Map;
 */
 
 public class DeleteReply {
+    public ArrayList<String> replyIDs = new ArrayList<>(); // 댓글 고유번호를 담을 ArrayList.
+
     public DeleteReply(ArrayList<String> rpostID, ArrayList<String> rgallID, String id, String pw, String user_no) {
 
         String UA = "Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53";
         // 디씨 모바일은 UA로 접속 거르니까 모바일 UA 추가.
-        ArrayList<String> replyIDs = new ArrayList<>(); // 댓글 고유번호를 담을 ArrayList.
 
         Map<String,String> cookies = new LoginDC(id, pw).cookies; // 로그인 세션 정보가 담긴 쿠키.
 
+
+        System.out.println("======REPLY REMOVAL PROCESS START======");
 
         for (int i = 0; i < rpostID.size(); i++) {
             try {
@@ -109,7 +112,7 @@ public class DeleteReply {
                 System.out.println("Reply has been already deleted.");
             }
         }
-        System.out.println("End.");
+        System.out.println("======REPLY REMOVAL PROCESS END======");
 
     }
 

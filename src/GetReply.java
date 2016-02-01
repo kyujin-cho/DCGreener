@@ -18,6 +18,8 @@ public class GetReply {
     public ArrayList<String> rpageNos = new ArrayList<>();
 
     public String user_no;
+
+    public boolean isNone = false;
     public GetReply(String id, Map<String, String> cookies) {
 
         String UA = "Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53";
@@ -51,20 +53,27 @@ public class GetReply {
                     </span></a>*/
                 Elements link = doc.select("ul.list_picture_u a.list_picture_a"); // 댓 달린 글 / 갤 ID 담겨있는 링크가 있는 태그 선택하기.
                 String[] split;
-                for (Element e : link) {
-                    // 링크 예제
-                    // ./view.php?g_id=nerdykjc&id=doosanbears_new&no=5497196&page=1&g_type=Rs_type=&g_no=47
-                    split = e.attr("href").split("&"); // 링크의 GET 방식은 &으로 구분하므로 &으로 나누기.
-                    rpostID = split[2].replace("no=", "");
-                    rgallID = split[1].replace("id=", "");
-                    rpageNo = split[3].replace("page=", "");
-                    rpostgID = split[5].replace("g_no=", "");
-                    System.out.println(rpostID + " " + rgallID + " " + e.select("span.list_right").text());
+                if (!link.first().html().contains("검색 결과가 없습니다.")) {
+                    for (Element e : link) {
+                        System.out.println(e.html());
+                        // 링크 예제
+                        // ./view.php?g_id=nerdykjc&id=doosanbears_new&no=5497196&page=1&g_type=Rs_type=&g_no=47
+                        split = e.attr("href").split("&"); // 링크의 GET 방식은 &으로 구분하므로 &으로 나누기.
+                        rpostID = split[2].replace("no=", "");
+                        rgallID = split[1].replace("id=", "");
+                        rpageNo = split[3].replace("page=", "");
+                        rpostgID = split[6].replace("g_no=", "");
+                        System.out.println(rpostID + " " + rgallID + " " + e.select("span.list_right").text());
 
-                    rpostIDs.add(rpostID);
-                    rgallIDs.add(rgallID); // 갤 ID / 댓 담긴 글 고유번호 리스트에 등록.
-                    rpageNos.add(rpageNo);
-                    rpostgIDs.add(rpostgID);
+                        rpostIDs.add(rpostID);
+                        rgallIDs.add(rgallID); // 갤 ID / 댓 담긴 글 고유번호 리스트에 등록.
+                        rpageNos.add(rpageNo);
+                        rpostgIDs.add(rpostgID);
+                    }
+                } else {
+                    System.out.println("No reply to delete.");
+                    isNone = true;
+                    break;
                 }
             }
 
@@ -75,8 +84,10 @@ public class GetReply {
 
             System.out.println("======REPLY END======");
 
-        } catch (IOException e2) {
-            e2.printStackTrace();
-        }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ArrayIndexOutOfBoundsException e1) {
+        e1.printStackTrace();
+    }
     }
 }

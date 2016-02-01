@@ -17,8 +17,9 @@ public class GetPost {
     public ArrayList<String> postgIDs = new ArrayList<>();
     public ArrayList<String> pageNos = new ArrayList<>();
 
+    public boolean isNone = false;
 
-    public GetPost(String id, Map<String, String> cookies ) {
+    public GetPost(String id, Map<String, String> cookies) {
 
 
         String UA = "Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53";
@@ -50,23 +51,33 @@ public class GetPost {
                     </span></a>*/
                 Elements link = doc.select("ul.list_picture_u a.list_picture_a"); // 댓 달린 글 / 갤 ID 담겨있는 링크가 있는 태그 선택하기.
                 String[] split;
-                for (Element e : link) {
-                    // 링크 예제
-                    // ./view.php?g_id=nerdykjc&id=doosanbears_new&no=5498816&page=1&g_type=G&s_type=&g_no=51
-                    split = e.attr("href").split("&"); // 링크의 GET 방식은 &으로 구분하므로 &으로 나누기.
-                    postID = split[2].replace("no=", "");
-                    gallID = split[1].replace("id=", "");
-                    pageNo = split[3].replace("page=", "");
-                    postgID = split[5].replace("g_no=", "");
-                    postIDs.add(postID);
-                    gallIDs.add(gallID); // 갤 ID / 댓 담긴 글 고유번호 리스트에 등록.
-                    pageNos.add(pageNo);
-                    postgIDs.add(postgID);
+                if(!link.first().html().contains("검색 결과가 없습니다.")) {
+                    for (Element e : link) {
+                        System.out.println(e.html());
+                        // 링크 예제
+                        // ./view.php?g_id=nerdykjc&id=doosanbears_new&no=5498816&page=1&g_type=G&s_type=&g_no=51
+                        split = e.attr("href").split("&"); // 링크의 GET 방식은 &으로 구분하므로 &으로 나누기.
+                        postID = split[2].replace("no=", "");
+                        gallID = split[1].replace("id=", "");
+                        pageNo = split[3].replace("page=", "");
+                        postgID = split[6].replace("g_no=", "");
+                        postIDs.add(postID);
+                        gallIDs.add(gallID); // 갤 ID / 댓 담긴 글 고유번호 리스트에 등록.
+                        pageNos.add(pageNo);
+                        postgIDs.add(postgID);
+                    }
+                } else {
+                    System.out.println("No post to delete.");
+                    isNone = true;
+                    break;
                 }
+
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ArrayIndexOutOfBoundsException e1) {
+            e1.printStackTrace();
         }
     }
 }
