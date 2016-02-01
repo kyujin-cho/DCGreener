@@ -14,6 +14,9 @@ import java.util.Map;
 public class GetReply {
     public ArrayList<String> rpostIDs = new ArrayList<>();
     public ArrayList<String> rgallIDs = new ArrayList<>(); // 댓 단 원글 고유번호 및 갤 ID 담을 리스트. 크기를 예측 하기 힘드니 배열이 아닌 ArrayList로.
+    public ArrayList<String> rpostgIDs = new ArrayList<>();
+    public ArrayList<String> rpageNos = new ArrayList<>();
+
     public String user_no;
     public GetReply(String id, Map<String, String> cookies) {
 
@@ -22,6 +25,8 @@ public class GetReply {
 
         String rpostID;
         String rgallID;
+        String rpostgID;
+        String rpageNo;
         String pagenum;
 
 
@@ -51,11 +56,15 @@ public class GetReply {
                     // ./view.php?g_id=nerdykjc&id=doosanbears_new&no=5497196&page=1&g_type=Rs_type=&g_no=47
                     split = e.attr("href").split("&"); // 링크의 GET 방식은 &으로 구분하므로 &으로 나누기.
                     rpostID = split[2].replace("no=", "");
-                    rgallID = split[1].replace("id=","");
+                    rgallID = split[1].replace("id=", "");
+                    rpageNo = split[3].replace("page=", "");
+                    rpostgID = split[5].replace("g_no=", "");
                     System.out.println(rpostID + " " + rgallID + " " + e.select("span.list_right").text());
 
                     rpostIDs.add(rpostID);
                     rgallIDs.add(rgallID); // 갤 ID / 댓 담긴 글 고유번호 리스트에 등록.
+                    rpageNos.add(rpageNo);
+                    rpostgIDs.add(rpostgID);
                 }
             }
 

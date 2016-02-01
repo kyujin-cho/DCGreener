@@ -14,7 +14,8 @@ import java.util.Map;
 public class GetPost {
     public ArrayList<String> postIDs = new ArrayList<>();
     public ArrayList<String> gallIDs = new ArrayList<>();
-
+    public ArrayList<String> postgIDs = new ArrayList<>();
+    public ArrayList<String> pageNos = new ArrayList<>();
 
 
     public GetPost(String id, Map<String, String> cookies ) {
@@ -25,6 +26,8 @@ public class GetPost {
 
         String postID;
         String gallID;
+        String postgID;
+        String pageNo;
         String pagenum;
 
 
@@ -53,8 +56,12 @@ public class GetPost {
                     split = e.attr("href").split("&"); // 링크의 GET 방식은 &으로 구분하므로 &으로 나누기.
                     postID = split[2].replace("no=", "");
                     gallID = split[1].replace("id=", "");
+                    pageNo = split[3].replace("page=", "");
+                    postgID = split[5].replace("g_no=", "");
                     postIDs.add(postID);
                     gallIDs.add(gallID); // 갤 ID / 댓 담긴 글 고유번호 리스트에 등록.
+                    pageNos.add(pageNo);
+                    postgIDs.add(postgID);
                 }
             }
 

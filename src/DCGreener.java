@@ -24,9 +24,15 @@ public class DCGreener {
 
         ArrayList<String> gallID = post.gallIDs;
         ArrayList<String> postID = post.postIDs;
+        ArrayList<String> postgID = post.postgIDs;
+        ArrayList<String> pageNo = post.pageNos;
+
 
         ArrayList<String> rgallID = reply.rgallIDs; // 갤 ID들 담긴 리스트.
         ArrayList<String> rpostID = reply.rpostIDs; // 댓 달린 글 고유번호 담긴 리스트.
+        ArrayList<String> rpostgID = reply.rpostgIDs;
+        ArrayList<String> rpageNo = reply.rpageNos;
+
         String userno = reply.user_no; // 회원 고유번호(인듯?).
 
         new DeletePost(postID, gallID, id, pw, userno);
